@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>激励金额自助查询</title>
+<style>
+  :root{
+    --blue:#185FA5; --blue-50:#E6F1FB; --green:#3B6D11;
+    --text:#1F2329; --muted:#6B7280; --border:#D0D5DD; --bg:#F7F8FA;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-user-select:text;user-select:text}
+  body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);padding:16px;line-height:1.6}
+  .wrap{max-width:640px;margin:0 auto}
+  header{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px}
+  header h1{font-size:18px;font-weight:600}
+  header p{font-size:12px;color:var(--muted);margin-top:4px}
+  .card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px}
+  label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+  input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none}
+  input:focus{border-color:var(--blue)}
+  .row2{display:flex;gap:10px}
+  .row2>div{flex:1}
+  .hint{font-size:12px;color:var(--muted);margin-top:8px}
+  .btn{margin-top:14px;width:100%;padding:12px;background:var(--blue);color:#fff;border:none;border-radius:10px;font-size:15px;cursor:pointer}
+  .btn:active{opacity:.9}
+  .result{margin-top:14px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;display:none}
+  .result.show{display:block}
+  .result h2{font-size:15px;margin-bottom:4px}
+  .total{font-size:26px;font-weight:700;color:var(--green);margin:4px 0 4px}
+  #resMeta{font-size:12px;color:var(--muted);margin-bottom:10px}
+  .grp{margin-top:12px}
+  .grp-title{display:flex;justify-content:space-between;align-items:center;background:var(--blue-50);border-radius:8px;padding:8px 10px;font-size:13px;font-weight:600}
+  .grp-title .sub{font-weight:500;color:var(--muted);font-size:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid #eee;vertical-align:top}
+  th{color:var(--muted);font-weight:500;white-space:nowrap}
+  td.num,th.num{text-align:right;white-space:nowrap}
+  .money{font-weight:600;color:var(--green)}
+  .empty{color:var(--muted);font-size:14px;padding:10px 0}
+  .warn{background:#FFF7ED;border:1px solid #FDBA74;color:#9A3412;border-radius:10px;padding:10px;font-size:13px;margin-top:12px}
+  .privacy{font-size:11px;color:var(--muted);margin-top:14px;text-align:center}
+  /* 禁止导出/打印：打印时隐藏全部内容 */
+  @media print{ body{display:none !important} }
+</style>
+</head>
+<body oncontextmenu="return false">
+<div class="wrap">
+  <header>
+    <h1>激励金额自助查询</h1>
+    <p>输入店代码或身份证号，一次查回试驾 / 交付 / 终端三类激励，7×24 在线</p>
+  </header>
+
+  <div class="card">
+    <label>查询钥匙（店代码 或 完整身份证号，系统自动识别）</label>
+    <input id="key" placeholder="店代码如 GZ001；或本人 18 位身份证号">
+    <div class="row2">
+      <div>
+        <label>查询人姓名（选填，便于留痕）</label>
+        <input id="querier" placeholder="选填">
+      </div>
+      <div>
+        <label>月份（选填，留空查全部）</label>
+        <input id="month" placeholder="如 2026-09">
+      </div>
+    </div>
+    <div class="hint">个人查询将同时匹配试驾/交付激励的「身份证」和终端激励的「总经理身份证」；身份证号仅在后台比对，页面不显示完整号码。</div>
+    <button class="btn" onclick="doQuery()">查 询</button>
+  </div>
+
+  <div class="result" id="result">
+    <h2 id="resTitle"></h2>
+    <div class="total" id="resTotal"></div>
+    <div id="resMeta"></div>
+    <div id="resBody"></div>
+  </div>
+
+  <div class="privacy">本页面仅提供查询、不提供导出/打印；每次查询均有留痕记录。数据问题请联系渠道赋能科核对。</div>
+</div>
+
+<script>
+// 各激励类型结果表要展示的列（后端 extra 字段）
+const GROUP_COLS = {
+  "试驾激励": ["车系", "上牌日期", "主岗位", "在职"],
+  "交付激励": ["员工工号", "DMS车系名称", "车型标准名称", "APP订单号"],
+  "终端激励": ["N60终端目标", "N60实绩"]
+};
+let lastPayload = "";
+
+function doQuery(){
+  const key = document.getElementById("key").value.trim();
+  const querier = document.getElementById("querier").value.trim();
+  const month = document.getElementById("month").value.trim();
+  const el = document.getElementById("result");
+  el.classList.remove("show");
+  if(!key){ alert("请输入店代码或身份证号"); return; }
+  const payload = JSON.stringify({key, querier, month});
+  if(payload === lastPayload){
+    // 同一钥匙重复点击也照常发起（后端照常留痕），仅提示已查询过
+  }
+  lastPayload = payload;
+  fetch("/api/query",{method:"POST",headers:{"Content-Type":"application/json"},body:payload})
+    .then(r=>r.json()).then(show).catch(()=>{
+      el.classList.add("show");
+      document.getElementById("resTitle").textContent="查询失败";
+      document.getElementById("resTotal").textContent="";
+      document.getElementById("resBody").innerHTML='<div class="empty">网络异常，请稍后重试或联系渠道赋能科。</div>';
+    });
+}
+
+function money(n){ return "¥" + Number(n).toLocaleString("zh-CN",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+function show(d){
+  const el = document.getElementById("result");
+  el.classList.add("show");
+  if(!d.found){
+    document.getElementById("resTitle").textContent="未查询到结果";
+    document.getElementById("resTotal").textContent="";
+    document.getElementById("resMeta").textContent="";
+    document.getElementById("resBody").innerHTML='<div class="warn">未匹配到对应记录。请核对输入是否正确（店代码 / 18位身份证号）；仍查不到请联系渠道赋能科核对。</div>';
+    return;
+  }
+  const who = d.mode==="person" ? "个人查询" : "门店查询";
+  document.getElementById("resTitle").textContent = who + " · " + (d.storeName||"（店名未知）");
+  document.getElementById("resTotal").textContent = "合计 " + money(d.total);
+  document.getElementById("resMeta").textContent =
+    "共 " + d.count + " 条 · 涉及 " + d.groups.length + " 类激励 · 查询时间 " + new Date().toLocaleString("zh-CN");
+
+  let html = "";
+  d.groups.forEach(g=>{
+    html += '<div class="grp"><div class="grp-title"><span>' + g.type +
+            '</span><span class="sub">' + g.count + ' 条 · 小计 ' + money(g.subtotal) + '</span></div>';
+    const cols = GROUP_COLS[g.type] || [];
+    html += '<table><thead><tr><th>月份</th><th>姓名</th>' +
+            (d.mode==="store" ? "<th>身份证(掩码)</th>" : "") +
+            cols.map(c=>"<th>"+c+"</th>").join("") +
+            '<th class="num">激励金额</th></tr></thead><tbody>';
+    g.rows.forEach(r=>{
+      html += "<tr><td>" + esc(r["月份"]) + "</td><td>" + esc(r["姓名"]) + "</td>" +
+              (d.mode==="store" ? "<td>" + esc(r["身份证(掩码)"]||"") + "</td>" : "") +
+              cols.map(c=>"<td>" + esc(r[c]===undefined?"":r[c]) + "</td>").join("") +
+              '<td class="num money">' + money(r["激励金额"]) + "</td></tr>";
+    });
+    html += "</tbody></table></div>";
+  });
+  document.getElementById("resBody").innerHTML = html;
+}
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m])); }
+
+// 回车触发查询
+document.getElementById("key").addEventListener("keydown", e=>{ if(e.key==="Enter") doQuery(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+企微可信域名校验文件放置处
+
+把企业微信后台下载的校验文件（文件名形如 WW_verify_xxxxxxxxxxxx.txt）
+直接放在本 public/ 目录下，重新部署后，后端会自动按根路径提供：
+  https://你的域名/WW_verify_xxxxxxxxxxxx.txt
+
+微信即可校验通过，从而在自建应用里设置「主页」和「可信域名」。
+本文件（PLACEMENT.txt）不会被应用请求，可保留。

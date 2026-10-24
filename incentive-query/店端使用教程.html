@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>激励金额自助查询 · 使用指引（店端版）</title>
+<style>
+  :root{ --blue:#185FA5; --blue-50:#E6F1FB; --green:#3B6D11; --amber:#BA7517;
+         --text:#1F2329; --muted:#6B7280; --border:#D0D5DD; --bg:#F7F8FA; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:20px}
+  .page{max-width:720px;margin:0 auto}
+  .hero{background:linear-gradient(135deg,var(--blue),#2E7BC4);color:#fff;border-radius:16px;padding:22px 24px}
+  .hero h1{font-size:20px;font-weight:700}
+  .hero p{font-size:13px;opacity:.92;margin-top:6px}
+  .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-top:14px}
+  .card h2{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .badge{display:inline-block;background:var(--blue);color:#fff;font-size:12px;border-radius:6px;padding:2px 9px;font-weight:600}
+  .step{display:flex;gap:14px;align-items:flex-start;margin:14px 0}
+  .step .num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue-50);color:var(--blue);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .step .body{flex:1}
+  .step .body b{font-size:14px}
+  .step .body p{font-size:13px;color:var(--muted);margin-top:3px}
+  .kbd{display:inline-block;background:#F1F3F5;border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:12px;font-family:monospace}
+  .tip{background:var(--blue-50);border-left:4px solid var(--blue);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:10px}
+  .warn{background:#FFF7ED;border-left:4px solid var(--amber);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:10px}
+  .ok{background:#EAF3DE;border-left:4px solid var(--green);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:10px}
+  ul{margin:6px 0 6px 18px;font-size:13px;color:var(--text)}
+  li{margin:4px 0}
+  .foot{text-align:center;font-size:11px;color:var(--muted);margin-top:18px}
+  svg{display:block;margin:6px auto}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <h1>激励金额自助查询 · 使用指引</h1>
+    <p>店端同事看这一页就够了｜输入店代码或身份证，一次查回试驾 / 交付 / 终端三类激励</p>
+  </div>
+
+  <!-- 在哪查 -->
+  <div class="card">
+    <h2><span class="badge">一</span>在哪查？</h2>
+    <div class="step">
+      <div class="num">1</div>
+      <div class="body">
+        <b>【全国店端主路径】企业微信 → 工作台 → 打开应用</b>
+        <p>在企微工作台找到「激励金额自助查询」应用，点开即是查询页（H5 页面）。<b>不用记链接、不用复制</b>，这是覆盖全国店端的正式入口。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="body">
+        <b>【备选，仅限 WorkBuddy 用户】在 WorkBuddy 内打开分享链接</b>
+        <p>这条路径只对在 <b>WorkBuddy</b> 里登录了账号的人开放。下面按"完全没用过 WorkBuddy"的小白视角，一步步来：</p>
+        <ol style="margin:8px 0 4px 18px;font-size:13px;color:var(--text)">
+          <li><b>先确认你有 WorkBuddy 账号并登录。</b>如果还没有，找你们对接人 / IT / 渠道赋能科开通一个（这个查询应用<strong>只对 WorkBuddy 内的人开放</strong>）。</li>
+          <li><b>拿到链接。</b>链接由渠道赋能科发给你——可能是聊天里的一条"应用链接"消息，也可能是 WorkBuddy 里「我发布的应用 / 应用中心」里的一个应用卡片。</li>
+          <li><b>在 WorkBuddy 里点开它（关键：别去外部浏览器）。</b>
+            <ul style="margin:4px 0 2px 18px;color:var(--muted)">
+              <li>方式A（推荐）：在 WorkBuddy 的对话框里<strong>直接点击那条链接</strong>，系统会用 WorkBuddy 内置浏览器打开查询页。</li>
+              <li>方式B：进入 WorkBuddy「设置 → 数据管理 → 我发布的应用」（或你们版本里的「应用中心」），找到「激励金额自助查询」点开。</li>
+            </ul>
+          </li>
+          <li><b>页面打开后</b>，按下面"怎么查"一节，输入店代码或身份证即可。</li>
+        </ol>
+        <p style="color:var(--amber)">⚠️ 此方式<strong>仅限已登录 WorkBuddy 的用户</strong>；店端同事若不使用 WorkBuddy，请走上面的企微工作台入口。</p>
+      </div>
+    </div>
+
+    <div class="warn">🚫 小白最常踩的 3 个坑：
+      <ul style="margin:6px 0 0 18px">
+        <li><b>复制到 Chrome / 微信 / Safari 去开</b> → 会显示"链接不完整"。这是平台安全限制，不是坏了，请回到 WorkBuddy 里点开。</li>
+        <li><b>只复制了一半链接 / 手敲链接</b> → 链接是一整段、带访问参数，少一段就打不开。</li>
+        <li><b>把链接贴进「新建任务」输入框</b> → 那只是给 AI 发了一段文字，<b>不会打开应用</b>，也不会触发查询。</li>
+      </ul>
+    </div>
+    <svg width="560" height="128" viewBox="0 0 560 128">
+      <rect x="10" y="16" width="160" height="36" rx="8" fill="#EAF3DE" stroke="#3B6D11"/>
+      <text x="90" y="39" text-anchor="middle" font-size="12" fill="#3B6D11">企微工作台·应用</text>
+      <line x1="170" y1="34" x2="232" y2="34" stroke="#9AA4AF" stroke-width="2" marker-end="url(#a)"/>
+      <rect x="10" y="72" width="160" height="36" rx="8" fill="#E6F1FB" stroke="#185FA5"/>
+      <text x="90" y="95" text-anchor="middle" font-size="12" fill="#185FA5">WorkBuddy内链接</text>
+      <line x1="170" y1="90" x2="232" y2="90" stroke="#9AA4AF" stroke-width="2" marker-end="url(#a)"/>
+      <rect x="244" y="45" width="130" height="40" rx="10" fill="#fff" stroke="#185FA5"/>
+      <text x="309" y="70" text-anchor="middle" font-size="13" fill="#185FA5">查询页</text>
+      <text x="309" y="122" text-anchor="middle" font-size="11" fill="#9AA4AF">两条路径都到同一查询页；WorkBuddy 路径仅限登录用户</text>
+      <defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#9AA4AF"/></marker></defs>
+    </svg>
+    <div class="warn">⚠️ 误区提醒：把链接贴进「新建任务」对话框，只是给 AI 发了一段文字，<b>不会打开查询应用</b>。外部浏览器（Chrome / 微信内置 / Safari）直接打开也会提示"链接不完整"——请用<b>企微工作台入口</b>或<b>WorkBuddy 内打开</b>。</div>
+  </div>
+
+  <!-- 怎么查 -->
+  <div class="card">
+    <h2><span class="badge">二</span>怎么查？两种钥匙，一个框</h2>
+    <div class="step">
+      <div class="num">1</div>
+      <div class="body">
+        <b>查本店全部激励 → 输入店代码</b>
+        <p>如 <span class="kbd">GZ001</span>，系统自动匹配三类激励（试驾的经销商编码、交付的经销商代码、终端的店编号），<b>一次出本店三类结果</b>。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">2</div>
+      <div class="body">
+        <b>查本人全部激励 → 输入 18 位身份证号</b>
+        <p>系统自动匹配试驾 / 交付的身份证，以及终端激励的总经理身份证。店长用自己的身份证也能查到门店的终端激励。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="num">3</div>
+      <div class="body">
+        <b>月份选填</b>
+        <p>留空 = 查全部月份；填 <span class="kbd">2026-09</span> 只查当月。</p>
+      </div>
+    </div>
+    <svg width="560" height="150" viewBox="0 0 560 150">
+      <rect x="20" y="20" width="520" height="46" rx="8" fill="#fff" stroke="#185FA5"/>
+      <text x="36" y="49" font-size="13" fill="#6B7280">输入钥匙（单框自动识别）</text>
+      <rect x="300" y="33" width="120" height="20" rx="4" fill="#F1F3F5"/>
+      <text x="360" y="47" text-anchor="middle" font-size="11" fill="#185FA5">GZ001 / 身份证</text>
+      <rect x="232" y="84" width="96" height="34" rx="8" fill="#185FA5"/>
+      <text x="280" y="106" text-anchor="middle" font-size="14" fill="#fff">查 询</text>
+      <line x1="280" y1="66" x2="280" y2="84" stroke="#9AA4AF" stroke-width="2" marker-end="url(#a)"/>
+      <g font-size="12">
+        <rect x="40" y="120" width="150" height="22" rx="6" fill="#E6F1FB"/><text x="115" y="135" text-anchor="middle" fill="#185FA5">试驾激励（小计）</text>
+        <rect x="210" y="120" width="150" height="22" rx="6" fill="#E6F1FB"/><text x="285" y="135" text-anchor="middle" fill="#185FA5">交付激励（小计）</text>
+        <rect x="380" y="120" width="140" height="22" rx="6" fill="#E6F1FB"/><text x="450" y="135" text-anchor="middle" fill="#185FA5">终端激励（小计）</text>
+      </g>
+      <text x="280" y="20" text-anchor="middle" font-size="11" fill="#9AA4AF">↑ 输入一次，三类结果分组展示，顶部有合计</text>
+    </svg>
+    <div class="ok">✅ 结果按「试驾 / 交付 / 终端」三类分组，每类列出明细 + 小计，页面顶部显示全部合计金额。</div>
+  </div>
+
+  <!-- 注意事项 -->
+  <div class="card">
+    <h2><span class="badge">三</span>注意事项</h2>
+    <ul>
+      <li><b>隐私保护：</b>身份证号只在后台做比对，页面上<b>不显示完整号码</b>（门店查询仅显示前4+****+后4的掩码）。</li>
+      <li><b>只查不导出：</b>本页面<b>没有导出 / 打印功能</b>，数据仅供本人 / 本店核对使用，请妥善保管查询结果。</li>
+      <li><b>查不到怎么办：</b>先核对钥匙是否填对（店代码 / 18 位身份证）；仍查不到，说明本月可能无对应记录，<b>请联系渠道赋能科核对</b>，不要反复尝试猜钥匙。</li>
+      <li><b>留痕说明：</b>每次查询都记录在案（谁、何时、查了几次），请放心核对、正常使用。</li>
+    </ul>
+    <div class="tip">📌 一句话记住：<b>复制整段链接打开 → 一框输入店代码或身份证 → 三类激励一次出。</b></div>
+  </div>
+
+  <div class="foot">本查询服务由渠道赋能科提供｜如有疑问请联系渠道赋能科</div>
+</div>
+</body>
+</html>
